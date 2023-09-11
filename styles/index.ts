@@ -1,2 +1,3 @@
 export { globalStyles } from './globals'
-export { scrollViewStyle } from './scrollView'
+export { tabPageStyle } from './tabPage'
+export { movieCardStyle } from './movieCard'

@@ -1,46 +1,45 @@
 import React, { useContext, useEffect } from 'react'
-import { ScrollView, Text, View, Image } from 'react-native'
-import { scrollViewStyle } from '../styles'
+import { ScrollView, View } from 'react-native'
 import { AppContext } from '../contexts/app-context'
+import { tabPageStyle } from '../styles'
+import { Text, Input, Button } from '@rneui/themed';
 import { TMovie } from '../@types'
+import MovieCard from '../components/MovieCard'
+import { getMoviesBySearchFromAPI } from '../lib';
 
 const Top = () => {
-  const { setCategory, movies } = useContext(AppContext)
+  const { setCategory, movies, setMovies } = useContext(AppContext)
 
   useEffect(() => {
     setCategory('top')
   }, [])
 
-
   return (
-    <ScrollView style={scrollViewStyle.container}>
-      {movies &&
-        movies.sort((a: TMovie, b: TMovie) => b.vote_average - a.vote_average)
-          .map(({
-            id,
-            poster_path,
-            original_title,
-            title,
-            overview,
-            vote_average }: TMovie) => {
-
-            const imageURI = `https://image.tmdb.org/t/p/w500/${poster_path}`
-            return (
-              <View key={id}>
-                <Image
-                  source={{ uri: imageURI }}
-                  width={100}
-                  height={150}
+    <View style={tabPageStyle.wrapper}>
+      <Text h2 h2Style={tabPageStyle.heading}>Top Movies</Text>
+      <ScrollView style={tabPageStyle.container} horizontal>
+        {movies &&
+          movies.sort((a: TMovie, b: TMovie) => b.vote_average - a.vote_average)
+            .map(({
+              id,
+              poster_path,
+              title,
+              vote_average,
+              release_date
+            }: TMovie) => {
+              const imageURI = `https://image.tmdb.org/t/p/w500/${poster_path}`
+              return (
+                <MovieCard
+                  key={id}
+                  date={release_date}
+                  imageURI={imageURI}
+                  rating={vote_average}
+                  title={title}
                 />
-                <View>
-                  <Text style={{ color: '#fff' }}>{original_title || title}</Text>
-                  <Text style={{ color: '#fff' }}>{overview}</Text>
-                  <Text style={{ color: '#fff' }}>{vote_average.toFixed(1)}</Text>
-                </View>
-              </View>
-            )
-          })}
-    </ScrollView>
+              )
+            })}
+      </ScrollView>
+    </View>
   )
 }
 

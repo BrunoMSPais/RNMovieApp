@@ -21,7 +21,7 @@
 - [x] Use the _useEffect_ hook to fetch the movies when the app loads and when the sort order changes
 - [x] Use the _fetch_ function to make the HTTP requests to the movie API
 - [x] Use async/await to handle the async logic
-- [ ] Use the _react-navigation_ library to implement the tabs
+- [x] Use the _react-navigation_ library to implement the tabs
 - [ ] Use the _react-native-elements_ library to style the components
 
 ### Bonus Features

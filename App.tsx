@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
-import { Text, Icon } from '@rneui/themed'
+import { Text, Icon, Input } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { AppContext } from './contexts/app-context'
-import { getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
+import { getMoviesBySearchFromAPI, getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
 import { TMovie } from './@types'
 import { globalStyles } from './styles'
 import { Popular, Top } from './screens/'
@@ -14,6 +14,7 @@ export default function App() {
   const [movies, setMovies] = useState<TMovie[] | null>(null)
   const [selectedMovie, setSelectedMovie] = useState<TMovie | null>(null)
   const [category, setCategory] = useState<'popular' | 'top'>('popular')
+  const [searchKeyWord, setSearchKeyWord] = useState<string | null>(null)
 
   const sortMovies = (movies: TMovie[]) => {
     return movies.sort((a, b) => {
@@ -63,6 +64,26 @@ export default function App() {
     getMovies()
   }, [category])
 
+  const getMoviesBySearch = async (keyWord: string) => {
+    try {
+      const fetchedMovies = await getMoviesBySearchFromAPI(searchKeyWord as string)
+
+      if (fetchedMovies === null) throw new Error('No movies found')
+
+      setMovies(fetchedMovies as TMovie[])
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
+        setMovies([])
+      }
+    }
+  }
+  useEffect(() => {
+    if (searchKeyWord !== null) {
+      getMoviesBySearch(searchKeyWord)
+    }
+  }, [searchKeyWord])
+
   return (
     <AppContext.Provider
       value={{
@@ -100,7 +121,15 @@ export default function App() {
             MovieZ
           </Text>
         </View>
-        {/* <Top /> */}
+
+        <View>
+          <Input
+            placeholder="Search for your favorite movie"
+            rightIcon={{ name: 'search', onPress: () => setSearchKeyWord(searchKeyWord) }}
+            onChangeText={value => setSearchKeyWord(value)}
+            value={searchKeyWord as string}
+          />
+        </View>
         <Routes />
         <StatusBar style='auto' />
       </View>

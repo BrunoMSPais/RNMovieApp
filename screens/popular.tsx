@@ -1,20 +1,42 @@
 import React, { useContext, useEffect } from 'react'
-import { Text, View } from 'react-native'
-import { globalStyles } from '../styles'
+import { ScrollView, View } from 'react-native'
 import { AppContext } from '../contexts/app-context'
+import { tabPageStyle } from '../styles'
+import { Text } from '@rneui/themed';
+import { TMovie } from '../@types'
+import MovieCard from '../components/MovieCard'
 
 const Popular = () => {
-  const { category, setCategory } = useContext(AppContext)
+  const { movies, setCategory } = useContext(AppContext)
 
   useEffect(() => {
     setCategory('popular')
   }, [])
 
   return (
-    <View style={{ backgroundColor: '#1b1b1b', flex: 1, width: '100%', paddingBottom: 8 }}>
-      {/* <View style={globalStyles.view}> */}
-      <Text style={globalStyles.titleText}>Popular Movies</Text>
-      <Text style={globalStyles.bodyText}>{category}</Text>
+    <View style={tabPageStyle.wrapper}>
+      <Text h2 h2Style={tabPageStyle.heading}>Trending Now</Text>
+      <ScrollView style={tabPageStyle.container} horizontal>
+        {movies &&
+          movies.map(({
+            id,
+            poster_path,
+            title,
+            vote_average,
+            release_date
+          }: TMovie) => {
+            const imageURI = `https://image.tmdb.org/t/p/w500/${poster_path}`
+            return (
+              <MovieCard
+                key={id}
+                date={release_date}
+                imageURI={imageURI}
+                rating={vote_average}
+                title={title}
+              />
+            )
+          })}
+      </ScrollView>
     </View>
   )
 }
