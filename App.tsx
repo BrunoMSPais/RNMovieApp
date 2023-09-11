@@ -1,17 +1,17 @@
+import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Text, Icon } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { AppContext } from './contexts/app-context'
-import Home from './screens/home'
-import { useEffect, useState } from 'react'
 import { getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
 import { TMovie } from './types'
 import { globalStyles } from './styles'
+import Home from './screens/home'
 
 export default function App() {
   const [movies, setMovies] = useState<TMovie[] | null>(null)
   const [selectedMovie, setSelectedMovie] = useState<TMovie | null>(null)
-  const [category, setCategory] = useState<"popular" | "top">("popular")
+  const [category, setCategory] = useState<'popular' | 'top'>('popular')
 
   const sortMovies = (movies: TMovie[]) => {
     return movies.sort((a, b) => {
@@ -56,7 +56,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (category === "top") getTopRatedMovies()
+    if (category === 'top') getTopRatedMovies()
 
     getMovies()
   }, [category])
@@ -73,22 +73,33 @@ export default function App() {
       }}
     >
       <View style={globalStyles.container}>
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 30,
-          width: '100%',
-          backgroundColor: '#000',
-          borderRadius: 8,
-          marginBottom: 20,
-          gap: 10,
-        }}>
-          <Icon name="movie" color="#fff" size={30} />
-          <Text h1 h1Style={{ color: '#fff', fontWeight: 'bold' }}>MovieZ</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 30,
+            width: '100%',
+            backgroundColor: '#000',
+            borderRadius: 8,
+            marginBottom: 20,
+            gap: 10,
+          }}
+        >
+          <Icon
+            name='movie'
+            color='#fff'
+            size={30}
+          />
+          <Text
+            h1
+            h1Style={{ color: '#fff', fontWeight: 'bold' }}
+          >
+            MovieZ
+          </Text>
         </View>
         <Home />
-        <StatusBar style="auto" />
+        <StatusBar style='auto' />
       </View>
     </AppContext.Provider>
   )

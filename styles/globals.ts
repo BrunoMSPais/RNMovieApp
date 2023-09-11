@@ -7,7 +7,7 @@ export const globalStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#1b1b1b',
     paddingVertical: 40,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   view: {
     flex: 1,
@@ -25,6 +25,6 @@ export const globalStyles = StyleSheet.create({
     color: '#fff',
     fontWeight: '400',
     lineHeight: 20,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 })
