@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { Text, View } from 'react-native';
 import { globalStyles } from './styles';
+import Home from './screens/home';
 
 export default function App() {
   return (
-    <View style={globalStyles.container}>
-      <Text style={globalStyles.titleText}>Open up App.tsx to start working on your app!</Text>
+    <View style={{ flex: 1 }}>
+      <Home />
       <StatusBar style="auto" />
     </View>
   );

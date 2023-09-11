@@ -12,6 +12,13 @@ export const globalStyles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     color: '#fff',
-    fontWeight: '600'
+    fontWeight: 'bold'
+  },
+  bodyText: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: '400',
+    lineHeight: 20,
+    marginVertical: 10
   }
 })
