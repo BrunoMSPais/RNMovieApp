@@ -1,3 +1,5 @@
 {
-	"cSpell.words": ["TMDB"]
+  "cSpell.words": ["rneui", "TMDB"],
+  "cSpell.language": "en,pt",
+  "editor.formatOnSave": true
 }

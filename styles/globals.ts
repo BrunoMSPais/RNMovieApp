@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -9,10 +9,16 @@ export const globalStyles = StyleSheet.create({
     paddingVertical: 40,
     paddingHorizontal: 10
   },
+  view: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: 'transparent',
+  },
   titleText: {
     fontSize: 20,
     color: '#fff',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    width: '100%',
   },
   bodyText: {
     fontSize: 16,

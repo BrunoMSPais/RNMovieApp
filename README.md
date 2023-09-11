@@ -16,8 +16,8 @@
 
 ### Main Features
 
-- [ ] Use functional components and the React Hooks API
-- [ ] Use the *useContext* hook to manage the app state with react-context
+- [x] Use functional components and the React Hooks API
+- [x] Use the *useContext* hook to manage the app state with react-context
 - [x] Use the *useEffect* hook to fetch the movies when the app loads and when the sort order changes
 - [x] Use the *fetch* function to make the HTTP requests to the movie API
 - [x] Use async/await to handle the async logic

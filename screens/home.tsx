@@ -1,14 +1,19 @@
-import React from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { useContext } from 'react'
+import { Text, View } from 'react-native'
 import { globalStyles } from '../styles'
-import { TMovie } from '../types'
-
-type HomeProps = {}
+import { AppContext } from '../contexts/app-context'
 
 const Home = () => {
+  const { category, movies } = useContext(AppContext)
+
   return (
-    <View style={globalStyles.container}>
-      <Text style={globalStyles.titleText}>Home Screen</Text>
+    <View style={globalStyles.view}>
+      {!movies && <Text>No movies found</Text>}
+      {
+        category === 'popular' ?
+          <Text style={globalStyles.titleText}>Popular Movies</Text> :
+          <Text style={globalStyles.titleText}>Top Rated Movies</Text>
+      }
     </View>
   )
 }
