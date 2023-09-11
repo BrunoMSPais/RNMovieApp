@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native'
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#1b1b1b',
-    paddingVertical: 40,
+    paddingTop: 40,
+    paddingBottom: 8,
     paddingHorizontal: 10,
   },
   view: {

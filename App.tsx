@@ -4,9 +4,11 @@ import { Text, Icon } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { AppContext } from './contexts/app-context'
 import { getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
-import { TMovie } from './types'
+import { TMovie } from './@types'
 import { globalStyles } from './styles'
-import Home from './screens/home'
+import { Popular, Top } from './screens/'
+import { TabRoutes } from './routes/tab.routes'
+import { Routes } from './routes'
 
 export default function App() {
   const [movies, setMovies] = useState<TMovie[] | null>(null)
@@ -98,7 +100,8 @@ export default function App() {
             MovieZ
           </Text>
         </View>
-        <Home />
+        {/* <Top /> */}
+        <Routes />
         <StatusBar style='auto' />
       </View>
     </AppContext.Provider>

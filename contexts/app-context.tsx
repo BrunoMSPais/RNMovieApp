@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { TMovie } from '../types'
+import { TMovie } from '../@types'
 
 export const AppContext = createContext({
   movies: null as TMovie[] | null,

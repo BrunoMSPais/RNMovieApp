@@ -1,4 +1,4 @@
-import { TMovie } from '../types'
+import { TMovie } from '../@types'
 
 // For this project I'm storing my API key and access token as client env variables because is only for running locally
 const AUTHORIZATION_TOKEN = process.env.EXPO_PUBLIC_TMDB_ACCESS_TOKEN
