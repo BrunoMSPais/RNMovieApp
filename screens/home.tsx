@@ -1,14 +1,14 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { globalStyles } from '../styles'
+import { TMovie } from '../types'
 
-type Props = {}
+type HomeProps = {}
 
-const Home = (props: Props) => {
+const Home = () => {
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.titleText}>React Native Movie App</Text>
-      <Text style={globalStyles.bodyText}>A simple movies app.</Text>
+      <Text style={globalStyles.titleText}>Home Screen</Text>
     </View>
   )
 }

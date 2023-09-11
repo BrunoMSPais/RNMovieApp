@@ -18,9 +18,9 @@
 
 - [ ] Use functional components and the React Hooks API
 - [ ] Use the *useContext* hook to manage the app state with react-context
-- [ ] Use the *useEffect* hook to fetch the movies when the app loads and when the sort order changes
-- [ ] Use the *fetch* function to make the HTTP requests to the movie API
-- [ ] Use async/await to handle the async logic
+- [x] Use the *useEffect* hook to fetch the movies when the app loads and when the sort order changes
+- [x] Use the *fetch* function to make the HTTP requests to the movie API
+- [x] Use async/await to handle the async logic
 - [ ] Use the *react-navigation* library to implement the tabs
 - [ ] Use the *react-native-elements* library to style the components
 

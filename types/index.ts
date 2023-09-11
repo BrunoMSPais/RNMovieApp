@@ -1,0 +1,1 @@
+export { TMovie } from './movie'
