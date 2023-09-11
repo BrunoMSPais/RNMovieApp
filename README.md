@@ -22,11 +22,11 @@
 - [x] Use the _fetch_ function to make the HTTP requests to the movie API
 - [x] Use async/await to handle the async logic
 - [x] Use the _react-navigation_ library to implement the tabs
-- [ ] Use the _react-native-elements_ library to style the components
+- [x] Use the _react-native-elements_ library to style the components
 
 ### Bonus Features
 
-- [ ] Add a search feature that allows the user to search for movies by title.
+- [x] Add a search feature that allows the user to search for movies by title.
 - [ ] Add a movie details page that displays more information about the movie (e.g. cast, crew, synopsis, etc.).
 - [ ] Offline support using the _react-native-offline_ library.
 
@@ -37,7 +37,10 @@
 > 3. Add a `.env.local` file to the root of the project with the content described in the `.env.example` file.
 > 4. Run `npm start` to start the _expo_ server and follow the instructions to run the app on a simulator or a real device.
 
-## Dependencies
+---
 
-> - [expo](https://www.npmjs.com/package/expo)
-> - [expo-status-bar](https://www.npmjs.com/package/expo-status-bar)
+## Author
+
+**Bruno Pais**
+
+[![GitHub link](https://img.shields.io/badge/GitHub-black?style=for-the-badge&logo=github)](https://github.com/BrunoMSPais) [![LinkedIn link](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/bruno-pais-webdev/)

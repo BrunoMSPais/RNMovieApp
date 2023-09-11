@@ -18,7 +18,6 @@ export async function getPopularMoviesFromAPI(): Promise<TMovie[] | string> {
       options,
     )
     const data = await response.json()
-    // console.log(data.results)
 
     return data.results
   } catch (error: unknown) {
@@ -38,7 +37,6 @@ export async function getTopRatedMoviesFromAPI(): Promise<TMovie[] | string> {
       options,
     )
     const data = await response.json()
-    // console.log(data.results)
 
     return data.results
   } catch (error: unknown) {
@@ -51,14 +49,10 @@ export async function getTopRatedMoviesFromAPI(): Promise<TMovie[] | string> {
   }
 }
 
-// TODO: Add a function to get the movie by search
 export async function getMoviesBySearchFromAPI(keyWord: string): Promise<TMovie[] | string> {
   try {
-    console.log('keyWord: ', keyWord)
-    // 'https://api.themoviedb.org/3/search/movie?query=the&include_adult=false&language=en-US&page=1
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?${keyWord.toLowerCase()}&include_adult=false&language=en-US&page=1`, options)
+    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${keyWord}&include_adult=false&language=en-US&page=1`, options)
     const data = await response.json()
-    console.log('RESPONDE DATA: ', data.results)
 
     return data.results
   } catch (error) {
@@ -72,4 +66,21 @@ export async function getMoviesBySearchFromAPI(keyWord: string): Promise<TMovie[
   }
 }
 
-// TODO: Add a function to get the movie details
+export async function getMovieDetailsFromAPI(movieId: number): Promise<TMovie | string> {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
+      options,
+    )
+    const data = await response.json()
+
+    return data
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error.message)
+      return error.message
+    }
+    console.error('Unknown error while fetching movies.')
+    return JSON.stringify(error)
+  }
+}

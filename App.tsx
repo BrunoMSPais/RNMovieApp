@@ -31,7 +31,6 @@ export default function App() {
       setMovies(fetchedMovies as TMovie[])
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
         setMovies([])
       }
     }
@@ -48,7 +47,6 @@ export default function App() {
       setMovies(sortedMovies)
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
         setMovies([])
       }
     }
@@ -73,12 +71,15 @@ export default function App() {
       setMovies(fetchedMovies as TMovie[])
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
         setMovies([])
       }
     }
   }
   useEffect(() => {
+    if (searchKeyWord === '' || searchKeyWord === null) {
+      getMovies()
+    }
+
     if (searchKeyWord !== null) {
       getMoviesBySearch(searchKeyWord)
     }
@@ -125,8 +126,8 @@ export default function App() {
         <View>
           <Input
             placeholder="Search for your favorite movie"
-            rightIcon={{ name: 'search', onPress: () => setSearchKeyWord(searchKeyWord) }}
-            onChangeText={value => setSearchKeyWord(value)}
+            rightIcon={{ name: 'search', onPress: () => setSearchKeyWord(prev => (prev = searchKeyWord)) }}
+            onChangeText={value => setSearchKeyWord(prev => (prev = value))}
             value={searchKeyWord as string}
           />
         </View>
