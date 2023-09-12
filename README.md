@@ -27,7 +27,7 @@
 ### Bonus Features
 
 - [x] Add a search feature that allows the user to search for movies by title.
-- [ ] Add a movie details page that displays more information about the movie (e.g. cast, crew, synopsis, etc.).
+- [x] Add a movie details page that displays more information about the movie (e.g. cast, crew, synopsis, etc.).
 - [ ] Offline support using the _react-native-offline_ library.
 
 ## Installation and Usage
@@ -44,6 +44,7 @@
   <img src='./assets/PopularScreen.jpg' alt='Popular screen' width='200px' />
   <img src='./assets/TopRatedScreen.jpg' alt='Top Rated screen' width='200px' />
   <img src='./assets/SearchScreen.jpg' alt='Search Screen' width='200px' />
+  <img src='./assets/MovieDetail.jpg' alt='Movie Details screen' width='200px' />
 </div>
 
 ---

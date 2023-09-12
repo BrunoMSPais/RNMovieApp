@@ -1,4 +1,5 @@
 import { TMovie } from '../@types'
+import { TMovieDetail } from '../@types/movie'
 
 // For this project I'm storing my API key and access token as client env variables because is only for running locally
 const AUTHORIZATION_TOKEN = process.env.EXPO_PUBLIC_TMDB_ACCESS_TOKEN
@@ -22,10 +23,9 @@ export async function getPopularMoviesFromAPI(): Promise<TMovie[] | string> {
     return data.results
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(error.message)
       return error.message
     }
-    console.error('Unknown error while fetching movies.')
+    
     return JSON.stringify(error)
   }
 }
@@ -36,16 +36,16 @@ export async function getTopRatedMoviesFromAPI(): Promise<TMovie[] | string> {
       'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1',
       options,
     )
+
     const data = await response.json()
 
     return data.results
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(error.message)
       return error.message
     }
-    console.error('Unknown error while fetching movies.')
-    return JSON.stringify(error)
+
+    throw new Error('Unknown error while fetching movies.')
   }
 }
 
@@ -57,16 +57,15 @@ export async function getMoviesBySearchFromAPI(keyWord: string): Promise<TMovie[
     return data.results
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message)
+
       return error.message
     }
 
-    console.error('Unknown error while fetching movies.')
-    return JSON.stringify(error)
+    throw new Error('Unknown error while fetching movies.')
   }
 }
 
-export async function getMovieDetailsFromAPI(movieId: number): Promise<TMovie | string> {
+export async function getMovieDetailsFromAPI(movieId: number): Promise<TMovieDetail | string> {
   try {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
@@ -77,10 +76,10 @@ export async function getMovieDetailsFromAPI(movieId: number): Promise<TMovie | 
     return data
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error(error.message)
+
       return error.message
     }
-    console.error('Unknown error while fetching movies.')
-    return JSON.stringify(error)
+    
+    throw new Error('Unknown error while fetching movie details.')
   }
 }

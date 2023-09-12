@@ -3,16 +3,24 @@ import { View } from 'react-native'
 import { Text, Icon, Input } from '@rneui/themed'
 import { StatusBar } from 'expo-status-bar'
 import { AppContext } from './contexts/app-context'
-import { getMoviesBySearchFromAPI, getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
+import {
+  getMoviesBySearchFromAPI,
+  getPopularMoviesFromAPI,
+  getTopRatedMoviesFromAPI,
+} from './lib'
 import { TMovie } from './@types'
 import { globalStyles } from './styles'
 import { Routes } from './routes'
+import Movie from './components/Movie'
+import { TMovieDetail } from './@types/movie'
 
 export default function App() {
+  const [movie, setMovie] = useState<TMovieDetail | null>(null)
   const [movies, setMovies] = useState<TMovie[] | null>(null)
   const [selectedMovie, setSelectedMovie] = useState<TMovie | null>(null)
   const [category, setCategory] = useState<'popular' | 'top'>('popular')
   const [searchKeyWord, setSearchKeyWord] = useState<string | null>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     getMovies()
@@ -87,12 +95,16 @@ export default function App() {
   return (
     <AppContext.Provider
       value={{
+        movie,
+        setMovie,
         movies,
         setMovies,
         selectedMovie,
         setSelectedMovie,
         category,
         setCategory,
+        visible,
+        setVisible,
       }}
     >
       <View style={globalStyles.container}>
@@ -124,11 +136,14 @@ export default function App() {
         </View>
 
         {/* Search input */}
-        <View
-          style={{ marginBottom: 'auto' }}>
+        <View style={{ marginBottom: 'auto' }}>
           <Input
-            placeholder="Search for your favorite movie"
-            rightIcon={{ name: 'search', onPress: () => searchKeyWord && handleSearch(searchKeyWord), color: 'rgba(255, 255, 255, 0.75)' }}
+            placeholder='Search for your favorite movie'
+            rightIcon={{
+              name: 'search',
+              onPress: () => searchKeyWord && handleSearch(searchKeyWord),
+              color: 'rgba(255, 255, 255, 0.75)',
+            }}
             onChangeText={value => handleSearch(value)}
             value={searchKeyWord as string}
             inputStyle={{ color: '#fff' }}
@@ -137,13 +152,34 @@ export default function App() {
         </View>
 
         {/* App content */}
-        <View style={{ backgroundColor: 'transparent', width: '100%', height: '65%' }}>
-          <Text h2 h2Style={{ color: '#fff', fontWeight: 'bold', marginBottom: 20, marginLeft: 8 }}>
-            {searchKeyWord ? 'Searched' : category === 'popular' ? 'Popular' : 'Top Rated'} Movies
+        <View
+          style={{
+            backgroundColor: 'transparent',
+            width: '100%',
+            height: '65%',
+          }}
+        >
+          <Text
+            h2
+            h2Style={{
+              color: '#fff',
+              fontWeight: 'bold',
+              marginBottom: 20,
+              marginLeft: 8,
+            }}
+          >
+            {searchKeyWord
+              ? 'Searched'
+              : category === 'popular'
+              ? 'Popular'
+              : 'Top Rated'}{' '}
+            Movies
           </Text>
           <Routes />
         </View>
 
+        {/* Movie Modal */}
+        <Movie />
 
         <StatusBar style='auto' />
       </View>
