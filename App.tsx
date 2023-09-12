@@ -137,7 +137,7 @@ export default function App() {
         </View>
 
         {/* App content */}
-        <View style={{ backgroundColor: 'transparent', width: '100%', height: '60%' }}>
+        <View style={{ backgroundColor: 'transparent', width: '100%', height: '65%' }}>
           <Text h2 h2Style={{ color: '#fff', fontWeight: 'bold', marginBottom: 20, marginLeft: 8 }}>
             {searchKeyWord ? 'Searched' : category === 'popular' ? 'Popular' : 'Top Rated'} Movies
           </Text>

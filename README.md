@@ -37,6 +37,15 @@
 > 3. Add a `.env.local` file to the root of the project with the content described in the `.env.example` file.
 > 4. Run `npm start` to start the _expo_ server and follow the instructions to run the app on a simulator or a real device.
 
+
+## Screenshots
+
+<div style='display: flex; alignItems: center; gap: 16px; overflow: auto'>
+  <img src='./assets/PopularScreen.jpg' alt='Popular screen' width='200px' />
+  <img src='./assets/TopRatedScreen.jpg' alt='Top Rated screen' width='200px' />
+  <img src='./assets/SearchScreen.jpg' alt='Search Screen' width='200px' />
+</div>
+
 ---
 
 ## Author
