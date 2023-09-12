@@ -44,7 +44,7 @@
   <img src='./assets/PopularScreen.jpg' alt='Popular screen' width='200px' />
   <img src='./assets/TopRatedScreen.jpg' alt='Top Rated screen' width='200px' />
   <img src='./assets/SearchScreen.jpg' alt='Search Screen' width='200px' />
-  <img src='./assets/' alt='Movie Details screen' width='200px' />
+  <img src='./assets/MovieDetail.jpg' alt='Movie Details screen' width='200px' />
 </div>
 
 ---
