@@ -18,13 +18,8 @@ export function TabRoutes() {
   const navigation = useNavigation()
 
   useEffect(() => {
-    setCategory('top')
+    setCategory('popular')
   }, [])
-
-
-  function handleNavigation() {
-    navigation.navigate('Popular')
-  }
 
   return (
     <Navigator
@@ -47,8 +42,9 @@ export function TabRoutes() {
           tabBarLabel: 'Popular Movies',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name='thumb-up' color={color} size={size} />
-          )
+          ),
         }}
+        listeners={{ tabPress: () => setCategory('popular') }}
       />
 
       <Screen
@@ -60,6 +56,7 @@ export function TabRoutes() {
             <MaterialIcons name='star' color={color} size={size} />
           ),
         }}
+        listeners={{ tabPress: () => setCategory('top') }}
       />
     </Navigator>
   )

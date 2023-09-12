@@ -1,22 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { AppContext } from '../contexts/app-context'
 import { tabPageStyle } from '../styles'
-import { Text, Input, Button } from '@rneui/themed';
 import { TMovie } from '../@types'
 import MovieCard from '../components/MovieCard'
-import { getMoviesBySearchFromAPI } from '../lib';
 
 const Top = () => {
-  const { setCategory, movies, setMovies } = useContext(AppContext)
-
-  useEffect(() => {
-    setCategory('top')
-  }, [])
+  const { movies } = useContext(AppContext)
 
   return (
     <View style={tabPageStyle.wrapper}>
-      <Text h2 h2Style={tabPageStyle.heading}>Top Movies</Text>
       <ScrollView style={tabPageStyle.container} horizontal>
         {movies &&
           movies.sort((a: TMovie, b: TMovie) => b.vote_average - a.vote_average)

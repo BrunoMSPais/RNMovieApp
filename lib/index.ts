@@ -1,1 +1,5 @@
-export { getPopularMoviesFromAPI, getTopRatedMoviesFromAPI, getMoviesBySearchFromAPI } from './get-movies'
+export {
+  getPopularMoviesFromAPI, 
+  getTopRatedMoviesFromAPI, 
+  getMoviesBySearchFromAPI 
+} from './get-movies'

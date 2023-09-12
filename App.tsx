@@ -6,8 +6,6 @@ import { AppContext } from './contexts/app-context'
 import { getMoviesBySearchFromAPI, getPopularMoviesFromAPI, getTopRatedMoviesFromAPI } from './lib'
 import { TMovie } from './@types'
 import { globalStyles } from './styles'
-import { Popular, Top } from './screens/'
-import { TabRoutes } from './routes/tab.routes'
 import { Routes } from './routes'
 
 export default function App() {
@@ -15,6 +13,16 @@ export default function App() {
   const [selectedMovie, setSelectedMovie] = useState<TMovie | null>(null)
   const [category, setCategory] = useState<'popular' | 'top'>('popular')
   const [searchKeyWord, setSearchKeyWord] = useState<string | null>(null)
+
+  useEffect(() => {
+    getMovies()
+  }, [])
+
+  useEffect(() => {
+    if (category === 'top') getTopRatedMovies()
+
+    getMovies()
+  }, [category])
 
   const sortMovies = (movies: TMovie[]) => {
     return movies.sort((a, b) => {
@@ -52,19 +60,9 @@ export default function App() {
     }
   }
 
-  useEffect(() => {
-    getMovies()
-  }, [])
-
-  useEffect(() => {
-    if (category === 'top') getTopRatedMovies()
-
-    getMovies()
-  }, [category])
-
   const getMoviesBySearch = async (keyWord: string) => {
     try {
-      const fetchedMovies = await getMoviesBySearchFromAPI(searchKeyWord as string)
+      const fetchedMovies = await getMoviesBySearchFromAPI(keyWord)
 
       if (fetchedMovies === null) throw new Error('No movies found')
 
@@ -75,15 +73,16 @@ export default function App() {
       }
     }
   }
-  useEffect(() => {
-    if (searchKeyWord === '' || searchKeyWord === null) {
+
+  function handleSearch(value: string): void {
+    if (value === '') {
+      setSearchKeyWord(null)
       getMovies()
     }
+    setSearchKeyWord(prev => value)
 
-    if (searchKeyWord !== null) {
-      getMoviesBySearch(searchKeyWord)
-    }
-  }, [searchKeyWord])
+    getMoviesBySearch(searchKeyWord as string)
+  }
 
   return (
     <AppContext.Provider
@@ -97,6 +96,7 @@ export default function App() {
       }}
     >
       <View style={globalStyles.container}>
+        {/* App header */}
         <View
           style={{
             flexDirection: 'row',
@@ -123,15 +123,28 @@ export default function App() {
           </Text>
         </View>
 
-        <View>
+        {/* Search input */}
+        <View
+          style={{ marginBottom: 'auto' }}>
           <Input
             placeholder="Search for your favorite movie"
-            rightIcon={{ name: 'search', onPress: () => setSearchKeyWord(prev => (prev = searchKeyWord)) }}
-            onChangeText={value => setSearchKeyWord(prev => (prev = value))}
+            rightIcon={{ name: 'search', onPress: () => searchKeyWord && handleSearch(searchKeyWord), color: 'rgba(255, 255, 255, 0.75)' }}
+            onChangeText={value => handleSearch(value)}
             value={searchKeyWord as string}
+            inputStyle={{ color: '#fff' }}
+            placeholderTextColor='rgba(255, 255, 255, 0.75)'
           />
         </View>
-        <Routes />
+
+        {/* App content */}
+        <View style={{ backgroundColor: 'transparent', width: '100%', height: '60%' }}>
+          <Text h2 h2Style={{ color: '#fff', fontWeight: 'bold', marginBottom: 20, marginLeft: 8 }}>
+            {searchKeyWord ? 'Searched' : category === 'popular' ? 'Popular' : 'Top Rated'} Movies
+          </Text>
+          <Routes />
+        </View>
+
+
         <StatusBar style='auto' />
       </View>
     </AppContext.Provider>

@@ -1,21 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { AppContext } from '../contexts/app-context'
 import { tabPageStyle } from '../styles'
-import { Text } from '@rneui/themed';
 import { TMovie } from '../@types'
 import MovieCard from '../components/MovieCard'
 
 const Popular = () => {
-  const { movies, setCategory } = useContext(AppContext)
-
-  useEffect(() => {
-    setCategory('popular')
-  }, [])
+  const { movies } = useContext(AppContext)
 
   return (
     <View style={tabPageStyle.wrapper}>
-      <Text h2 h2Style={tabPageStyle.heading}>Trending Now</Text>
       <ScrollView style={tabPageStyle.container} horizontal>
         {movies &&
           movies.map(({
