@@ -13,6 +13,8 @@ import { globalStyles } from './styles'
 import { Routes } from './routes'
 import Movie from './components/Movie'
 import { TMovieDetail } from './@types/movie'
+import { NetworkProviderWrapper } from './contexts/nextwork-context'
+import NetInfo from "@react-native-community/netinfo";
 
 export default function App() {
   const [movie, setMovie] = useState<TMovieDetail | null>(null)
@@ -22,8 +24,16 @@ export default function App() {
   const [searchKeyWord, setSearchKeyWord] = useState<string | null>(null)
   const [visible, setVisible] = useState(false)
 
+  const [isConnected, setIsConnected] = useState<boolean | null>(true)
+
+
   useEffect(() => {
     getMovies()
+
+    // check if user is connected to the internet
+    NetInfo.addEventListener(state => {
+      setIsConnected(state.isConnected)
+    })
   }, [])
 
   useEffect(() => {
@@ -107,82 +117,137 @@ export default function App() {
         setVisible,
       }}
     >
-      <View style={globalStyles.container}>
-        {/* App header */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 30,
-            width: '100%',
-            backgroundColor: '#000',
-            borderRadius: 8,
-            marginBottom: 20,
-            gap: 10,
-          }}
-        >
-          <Icon
-            name='movie'
-            color='#fff'
-            size={30}
-          />
-          <Text
-            h1
-            h1Style={{ color: '#fff', fontWeight: 'bold' }}
-          >
-            MovieZ
-          </Text>
-        </View>
+      <NetworkProviderWrapper>
+        {
+          isConnected ?
+            (<View style={globalStyles.container}>
+              {/* App header */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 30,
+                  width: '100%',
+                  backgroundColor: '#000',
+                  borderRadius: 8,
+                  marginBottom: 20,
+                  gap: 10,
+                }}
+              >
+                <Icon
+                  name='movie'
+                  color='#fff'
+                  size={30}
+                />
+                <Text
+                  h1
+                  h1Style={{ color: '#fff', fontWeight: 'bold' }}
+                >
+                  MovieZ
+                </Text>
+              </View>
 
-        {/* Search input */}
-        <View style={{ marginBottom: 'auto' }}>
-          <Input
-            placeholder='Search for your favorite movie'
-            rightIcon={{
-              name: 'search',
-              onPress: () => searchKeyWord && handleSearch(searchKeyWord),
-              color: 'rgba(255, 255, 255, 0.75)',
-            }}
-            onChangeText={value => handleSearch(value)}
-            value={searchKeyWord as string}
-            inputStyle={{ color: '#fff' }}
-            placeholderTextColor='rgba(255, 255, 255, 0.75)'
-          />
-        </View>
+              {/* Search input */}
+              <View style={{ marginBottom: 'auto' }}>
+                <Input
+                  placeholder='Search for your favorite movie'
+                  rightIcon={{
+                    name: 'search',
+                    onPress: () => searchKeyWord && handleSearch(searchKeyWord),
+                    color: 'rgba(255, 255, 255, 0.75)',
+                  }}
+                  onChangeText={value => handleSearch(value)}
+                  value={searchKeyWord as string}
+                  inputStyle={{ color: '#fff' }}
+                  placeholderTextColor='rgba(255, 255, 255, 0.75)'
+                />
+              </View>
 
-        {/* App content */}
-        <View
-          style={{
-            backgroundColor: 'transparent',
-            width: '100%',
-            height: '65%',
-          }}
-        >
-          <Text
-            h2
-            h2Style={{
-              color: '#fff',
-              fontWeight: 'bold',
-              marginBottom: 20,
-              marginLeft: 8,
-            }}
-          >
-            {searchKeyWord
-              ? 'Searched'
-              : category === 'popular'
-              ? 'Popular'
-              : 'Top Rated'}{' '}
-            Movies
-          </Text>
-          <Routes />
-        </View>
+              {/* App content */}
+              <View
+                style={{
+                  backgroundColor: 'transparent',
+                  width: '100%',
+                  height: '65%',
+                }}
+              >
+                <Text
+                  h2
+                  h2Style={{
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    marginBottom: 20,
+                    marginLeft: 8,
+                  }}
+                >
+                  {searchKeyWord
+                    ? 'Searched'
+                    : category === 'popular'
+                      ? 'Popular'
+                      : 'Top Rated'}{' '}
+                  Movies
+                </Text>
+                <Routes />
+              </View>
 
-        {/* Movie Modal */}
-        <Movie />
+              {/* Movie Modal */}
+              <Movie />
 
-        <StatusBar style='auto' />
-      </View>
+              <StatusBar style='auto' />
+            </View>) :
+            (<View style={globalStyles.container}>
+              {/* App header */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 30,
+                  width: '100%',
+                  backgroundColor: '#000',
+                  borderRadius: 8,
+                  marginBottom: 20,
+                  gap: 10,
+                }}
+              >
+                <Icon
+                  name='movie'
+                  color='#fff'
+                  size={30}
+                />
+                <Text
+                  h1
+                  h1Style={{ color: '#fff', fontWeight: 'bold' }}
+                >
+                  MovieZ
+                </Text>
+              </View>
+
+              {/* App content */}
+              <View
+                style={{
+                  backgroundColor: 'transparent',
+                  width: '100%',
+                  height: '65%',
+                }}
+              >
+                <Text
+                  h2
+                  h2Style={{
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    marginBottom: 20,
+                    marginLeft: 8,
+                  }}
+                >
+                  No internet connection 😟
+                </Text>
+                <Routes />
+              </View>
+            </View>)
+        }
+      </NetworkProviderWrapper>
     </AppContext.Provider>
   )
 }
